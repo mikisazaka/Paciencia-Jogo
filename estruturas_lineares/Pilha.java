@@ -10,6 +10,22 @@ public class Pilha {
 		this.cabeca = null;
 		this.size =  0;
 	}
+
+	public No<Carta> getCabeca() {
+		return cabeca;
+	}
+
+	public void setCabeca(No<Carta> cabeca) {
+		this.cabeca = cabeca;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
 	
 	public void push(Carta valor) {
 		No<Carta> novo = new No<>(valor);
@@ -37,21 +53,5 @@ public class Pilha {
 		}
 
 		System.out.println();
-	}
-
-	public No<Carta> getCabeca() {
-		return cabeca;
-	}
-
-	public void setCabeca(No<Carta> cabeca) {
-		this.cabeca = cabeca;
-	}
-
-	public int getSize() {
-		return size;
-	}
-
-	public void setSize(int size) {
-		this.size = size;
 	}
 }
