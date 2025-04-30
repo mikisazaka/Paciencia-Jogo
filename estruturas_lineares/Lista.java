@@ -83,7 +83,6 @@ public class Lista {
 			
 			if (i == 0) {
 				removerCabeca();
-				size--;
 			} else {
 				while (aux != null) {
 					if (aux.getValor() == get(i)) {
@@ -115,6 +114,14 @@ public class Lista {
 		
 		System.out.println();
 	}
+
+	public boolean estaVazio() {
+		if (this.size == 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}	
 
 	public No<Carta> getCabeca() {
 		return cabeca;

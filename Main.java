@@ -1,10 +1,12 @@
 
+import cartas.Baralho;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        Baralho baralho = new Baralho();
 
         while (true) {
 
@@ -19,7 +21,14 @@ public class Main {
             switch (opcao) {
                 
                 case 1: {
-
+                    System.out.println("Embaralhando...");
+                    
+                    if(baralho.getCartas() == null) {
+                        System.out.println("Falha ao embaralhar.");
+                    } else {
+                        baralho.embaralhar();
+                        System.out.println("Embaralhamento concluído! \nForam embaralhadas " + baralho.getCartas().getSize() + " cartas!");
+                    }
                     break;
 
                 }
@@ -96,6 +105,6 @@ public class Main {
 
         }
 
-    }
+    } 
 
 }
