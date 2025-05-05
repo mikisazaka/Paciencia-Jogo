@@ -83,6 +83,7 @@ public class Lista {
 			
 			if (i == 0) {
 				removerCabeca();
+				size--;
 			} else {
 				while (aux != null) {
 					if (aux.getValor() == get(i)) {
