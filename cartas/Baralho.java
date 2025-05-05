@@ -15,11 +15,12 @@ public class Baralho {
     private void gerarBaralho() {
 
         String[] naipes = {"Copas", "Ouros", "Paus", "Espadas"};
+        String[] naipesVisuais = {"\u2665", "\u2666", "\u2663", "\u2660"};
         String[] cores = {"Vermelha", "Vermelha", "Preta", "Preta"};
 
         for (int i = 0; i < naipes.length; i++) {
             for (int numero = 1; numero <= 13; numero++) {
-                String nome = naipes[i] + numero;
+                String nome = naipesVisuais[i] + numero;
                 Carta c = new Carta(numero, naipes[i], cores[i], false, nome);
                 cartas.add(c);
             }

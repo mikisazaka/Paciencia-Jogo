@@ -6,6 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        Jogo jogo = new Jogo();
         Baralho baralho = new Baralho();
 
         while (true) {
@@ -35,6 +36,7 @@ public class Main {
 
                 case 2: {
 
+                    jogo.estruturarJogo(baralho);
                     boolean jogoFinalizado = false;
                     while (!jogoFinalizado) {
                         System.out.println("\n======Menu do jogo======");
@@ -46,11 +48,12 @@ public class Main {
                         System.out.println("6 - Reiniciar o jogo");
                         System.out.println("7 - Ver estado atual do jogo");
                         System.out.println("8 - Sair do jogo");
-                        System.out.println("");
+                        System.out.println();
 
                         int opcaoJogo = Integer.parseInt(sc.nextLine());
 
                         switch (opcaoJogo) {
+
                             case 1:
                             
                                 break;
@@ -79,12 +82,20 @@ public class Main {
                                 
                                 break;
                                 
-                            case 8:
+                            case 8: {
+
                                 System.out.println("Saindo do jogo...");
                                 jogoFinalizado = true;
                                 break;
-                            default:
+
+                            }
+
+                            default: {
+
                                 System.out.println("Opção inválida!");
+                                break;
+
+                            }
                         }
                     }
 
