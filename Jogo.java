@@ -6,6 +6,9 @@ import estruturas_lineares.Lista;
 import estruturas_lineares.No;
 import estruturas_lineares.Pilha;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Jogo {
 
     private Pilha[] bases = new Pilha[4];
@@ -48,8 +51,65 @@ public class Jogo {
         }
     }
 
-    public void visualizarJogo() {
+    public void visualizarJogo(Baralho baralho) {
+        if (monteCompra.getSize() == 0) {
+            System.out.print("[ ]  ");
+        } else {
+            System.out.print("[X]  ");
+        }
 
+        if (monteCompra.getSize() == 0 || !monteCompra.getCabeca().getValor().isVisivel()) {
+            System.out.print("[ ]");
+        } else {
+            System.out.print(monteCompra.getCabeca().getValor().getNome());
+        }
+
+        System.out.print("     ");
+        for (Pilha base : bases) {
+            if (base.getSize() == 0) {
+                System.out.print("[ ]  ");
+            } else {
+                Carta topo = base.getCabeca().getValor();
+                System.out.printf("%-5s", topo.getNome());
+            }
+        }
+        System.out.println("\n");
+
+        int maxAltura = 0;
+        for (Lista lista : mesa) {
+            int altura = 0;
+            No<Carta> aux = lista.getCabeca();
+            while (aux != null) {
+                altura++;
+                aux = aux.getProx();
+            }
+            if (altura > maxAltura) {
+                maxAltura = altura;
+            }
+        }
+
+        for (int i = 0; i < maxAltura; i++) {
+            for (Lista lista : mesa) {
+                No<Carta> aux = lista.getCabeca();
+                int altura = 0;
+
+                while (aux != null && altura < i) {
+                    aux = aux.getProx();
+                    altura++;
+                }
+
+                if (aux != null) {
+                    if (aux.getProx() == null) {
+                        System.out.printf("%-5s", aux.getValor().getNome());
+                    } else {
+                        System.out.print("X    ");
+                    }
+                } else {
+                    System.out.print("     ");
+                }
+            }
+            System.out.println();
+        }
     }
 
     public Pilha[] getBases() {
