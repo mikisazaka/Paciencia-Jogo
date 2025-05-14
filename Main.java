@@ -1,4 +1,3 @@
-
 import cartas.Baralho;
 import java.util.Scanner;
 
@@ -79,7 +78,6 @@ public class Main {
                                 break;
 
                             case 7:
-                                
                                 break;
                                 
                             case 8: {

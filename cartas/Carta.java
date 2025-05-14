@@ -55,4 +55,9 @@ public class Carta {
         this.nome = nome;
     }
 
+    @Override
+    public String toString() {
+        return getNome();
+    }
+
 }
