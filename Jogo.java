@@ -61,7 +61,8 @@ public class Jogo {
         if (monteCompra.getSize() == 0 || !monteCompra.getCabeca().getValor().isVisivel()) {
             System.out.print("[ ]");
         } else {
-            System.out.print(monteCompra.getCabeca().getValor().getNome());
+            Carta topo = monteCompra.getCabeca().getValor();
+            System.out.print(colorirCarta(topo));
         }
 
         System.out.print("     ");
@@ -70,7 +71,8 @@ public class Jogo {
                 System.out.print("[ ]  ");
             } else {
                 Carta topo = base.getCabeca().getValor();
-                System.out.printf("%-5s", topo.getNome());
+                String carta = colorirCarta(topo);
+                System.out.print(padRight(carta, 5 + (carta.length() - topo.getNome().length())));
             }
         }
         System.out.println("\n");
@@ -99,8 +101,10 @@ public class Jogo {
                 }
 
                 if (aux != null) {
+                    Carta carta = aux.getValor();
                     if (aux.getProx() == null) {
-                        System.out.printf("%-5s", aux.getValor().getNome());
+                        String cor = colorirCarta(carta);
+                        System.out.print(padRight(cor, 5 + (cor.length() - carta.getNome().length())));
                     } else {
                         System.out.print("X    ");
                     }
@@ -110,6 +114,30 @@ public class Jogo {
             }
             System.out.println();
         }
+    }
+
+    private String colorirCarta(Carta carta) {
+        String nome = carta.getNome();
+        char naipe = nome.charAt(0);
+
+        switch (naipe) {
+            case '♥':
+            case '♦':
+                return "\u001B[31m" + nome + "\u001B[0m"; // Vermelho
+            case '♠':
+            case '♣':
+                return "\u001B[37m" + nome + "\u001B[0m"; // Preto (cinza claro)
+            default:
+                return nome;
+        }
+    }
+
+    private String padRight(String texto, int totalLength) {
+        StringBuilder sb = new StringBuilder(texto);
+        while (sb.length() < totalLength) {
+            sb.append(" ");
+        }
+        return sb.toString();
     }
 
     public Pilha[] getBases() {
