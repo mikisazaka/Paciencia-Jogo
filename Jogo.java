@@ -6,9 +6,6 @@ import estruturas_lineares.Lista;
 import estruturas_lineares.No;
 import estruturas_lineares.Pilha;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Jogo {
 
     private Pilha[] bases = new Pilha[4];
