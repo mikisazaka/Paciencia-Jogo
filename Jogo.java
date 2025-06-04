@@ -51,7 +51,7 @@ public class Jogo {
         }
     }
 
-    public void visualizarJogo(Baralho baralho) {
+    public void visualizarJogo() {
         if (monteCompra.getSize() == 0) {
             System.out.print("[ ]  ");
         } else {
@@ -138,6 +138,18 @@ public class Jogo {
             sb.append(" ");
         }
         return sb.toString();
+    }
+
+    public boolean verificarVitoria() {
+        if(monteCompra.getSize() == 0) {
+            for(Lista lista : mesa) {
+                if (lista.getSize() != 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     public Pilha[] getBases() {
