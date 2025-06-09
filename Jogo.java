@@ -1,13 +1,6 @@
 
-import cartas.Baralho;
-import cartas.Carta;
-import estruturas_lineares.Fila;
-import estruturas_lineares.Lista;
-import estruturas_lineares.No;
-import estruturas_lineares.Pilha;
-
-import java.util.ArrayList;
-import java.util.List;
+import cartas.*;
+import estruturas_lineares.*;
 
 public class Jogo {
 
@@ -150,6 +143,25 @@ public class Jogo {
             return true;
         }
         return false;
+    }
+
+    public Carta movimentacaoFila() {
+
+        if (monteCompra.getSize() == 0) {
+            return null; 
+        }
+
+        Carta aux = monteCompra.getCabeca().getValor();
+        if (aux.isVisivel()) {
+            aux.setVisibilidade(false);
+            monteCompra.dequeue();
+            monteCompra.enqueue(aux);
+        }
+
+        Carta carta = monteCompra.getCabeca().getValor();
+        carta.setVisibilidade(true);
+        return carta;
+
     }
 
     public Pilha[] getBases() {

@@ -1,4 +1,5 @@
-import cartas.Baralho;
+
+import cartas.*;
 import java.util.Scanner;
 
 public class Main {
@@ -19,11 +20,11 @@ public class Main {
             int opcao = Integer.parseInt(sc.nextLine());
 
             switch (opcao) {
-                
+
                 case 1: {
                     System.out.println("Embaralhando...");
-                    
-                    if(baralho.getCartas() == null) {
+
+                    if (baralho.getCartas() == null) {
                         System.out.println("Falha ao embaralhar.");
                     } else {
                         baralho.embaralhar();
@@ -54,45 +55,54 @@ public class Main {
                         switch (opcaoJogo) {
 
                             case 1:
-                            
+
                                 break;
 
-                            case 2:
-                                
+                            case 2: {
+
+                                Carta cartaFila = jogo.movimentacaoFila();
+
+                                if(cartaFila == null) {
+                                    System.out.println("Não há cartas na fila para movimentar.");
+                                } else {
+                                    System.out.println("Nova carta do monte: " + cartaFila.getNome());
+                                }
                                 break;
+                            }
 
                             case 3:
-                                
+
                                 break;
 
                             case 4:
-                                
+
                                 break;
 
                             case 5:
-                                
+
                                 break;
 
                             case 6:
-                                
+
                                 break;
 
-                            case 7:
+                            case 7: {
+
+                                jogo.visualizarJogo();
                                 break;
-                                
+                            }
+
                             case 8: {
 
                                 System.out.println("Saindo do jogo...");
                                 jogoFinalizado = true;
                                 break;
-
                             }
 
                             default: {
 
                                 System.out.println("Opção inválida!");
                                 break;
-
                             }
                         }
                     }
@@ -114,6 +124,6 @@ public class Main {
 
         }
 
-    } 
+    }
 
 }
