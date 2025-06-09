@@ -28,8 +28,9 @@ public class Fila {
 		size++;
 	}
 	
-	public boolean dequeue() {
+	public Carta dequeue() {
 		if (cabeca != null) {
+			Carta aux = cabeca.getValor();
 			cabeca = cabeca.getProx();
 			
 			if(cabeca == null) {
@@ -37,9 +38,9 @@ public class Fila {
 			}
 			
 			size--;
-			return true;
+			return aux;
 		} else {
-			return false;
+			return null;
 		}
 	}
 	
