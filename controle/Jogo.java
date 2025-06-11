@@ -1,3 +1,4 @@
+package controle;
 
 import cartas.*;
 import estruturas_lineares.*;
@@ -7,6 +8,8 @@ public class Jogo {
     private Pilha[] bases = new Pilha[4];
     private Fila monteCompra;
     private Lista[] mesa = new Lista[7];
+
+    private Movimentacoes movimentacoes;
 
     public Jogo() {
         monteCompra = new Fila();
@@ -18,6 +21,8 @@ public class Jogo {
         for (int i = 0; i < mesa.length; i++) {
             mesa[i] = new Lista();
         }
+
+        movimentacoes = new Movimentacoes(this);
     }
 
     public void estruturarJogo(Baralho baralho) {
@@ -145,25 +150,6 @@ public class Jogo {
         return false;
     }
 
-    public Carta movimentacaoFila() {
-
-        if (monteCompra.getSize() == 0) {
-            return null; 
-        }
-
-        Carta aux = monteCompra.getCabeca().getValor();
-        if (aux.isVisivel()) {
-            aux.setVisibilidade(false);
-            monteCompra.dequeue();
-            monteCompra.enqueue(aux);
-        }
-
-        Carta carta = monteCompra.getCabeca().getValor();
-        carta.setVisibilidade(true);
-        return carta;
-
-    }
-
     public Pilha[] getBases() {
         return bases;
     }
@@ -186,6 +172,10 @@ public class Jogo {
 
     public void setMesa(Lista[] mesa) {
         this.mesa = mesa;
+    }
+
+    public Movimentacoes getMovimentacoes() {
+        return movimentacoes;
     }
 
 }
