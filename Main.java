@@ -1,5 +1,6 @@
 
 import cartas.*;
+import controle.Jogo;
 import java.util.Scanner;
 
 public class Main {
@@ -60,7 +61,7 @@ public class Main {
 
                             case 2: {
 
-                                Carta cartaFila = jogo.movimentacaoFila();
+                                Carta cartaFila = jogo.getMovimentacoes().movimentacaoFila();
 
                                 if(cartaFila == null) {
                                     System.out.println("Não há cartas na fila para movimentar.");
