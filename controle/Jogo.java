@@ -1,3 +1,4 @@
+package controle;
 
 import cartas.Baralho;
 import cartas.Carta;
@@ -12,6 +13,8 @@ public class Jogo {
     private Fila monteCompra;
     private Lista[] mesa = new Lista[7];
 
+    private Movimentacoes movimentacoes;
+
     public Jogo() {
         monteCompra = new Fila();
 
@@ -22,6 +25,8 @@ public class Jogo {
         for (int i = 0; i < mesa.length; i++) {
             mesa[i] = new Lista();
         }
+
+        movimentacoes = new Movimentacoes(this);
     }
 
     public void estruturarJogo(Baralho baralho) {
@@ -192,6 +197,10 @@ public class Jogo {
 
     public void setMesa(Lista[] mesa) {
         this.mesa = mesa;
+    }
+
+    public Movimentacoes getMovimentacoes() {
+        return movimentacoes;
     }
 
 }

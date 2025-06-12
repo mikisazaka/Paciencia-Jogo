@@ -1,4 +1,6 @@
-import cartas.Baralho;
+
+import cartas.*;
+import controle.Jogo;
 import java.util.Scanner;
 
 public class Main {
@@ -57,9 +59,17 @@ public class Main {
                             
                                 break;
 
-                            case 2:
-                                
+                            case 2: {
+
+                                Carta cartaFila = jogo.getMovimentacoes().movimentacaoFila();
+
+                                if(cartaFila == null) {
+                                    System.out.println("Não há cartas na fila para movimentar.");
+                                } else {
+                                    System.out.println("Nova carta do monte: " + cartaFila.getNome());
+                                }
                                 break;
+                            }
 
                             case 3:
                                 
@@ -113,7 +123,5 @@ public class Main {
             }
 
         }
-
-    } 
-
+    }
 }
