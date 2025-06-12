@@ -1,7 +1,11 @@
 package controle;
 
-import cartas.*;
-import estruturas_lineares.*;
+import cartas.Baralho;
+import cartas.Carta;
+import estruturas_lineares.Fila;
+import estruturas_lineares.Lista;
+import estruturas_lineares.No;
+import estruturas_lineares.Pilha;
 
 public class Jogo {
 
@@ -49,7 +53,7 @@ public class Jogo {
         }
     }
 
-    public void visualizarJogo() {
+    public void visualizarJogo(Baralho baralho) {
         if (monteCompra.getSize() == 0) {
             System.out.print("[ ]  ");
         } else {
@@ -138,17 +142,38 @@ public class Jogo {
         return sb.toString();
     }
 
-    public boolean verificarVitoria() {
-        if(monteCompra.getSize() == 0) {
-            for(Lista lista : mesa) {
-                if (lista.getSize() != 0) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        return false;
+    public String moverFilaPilha() {
+    if (monteCompra.getSize() == 0) {
+        return "Monte de compra está vazio.";
     }
+
+    Carta cartaFila = monteCompra.getCabeca().getValor();
+
+    if (!cartaFila.isVisivel()) {
+        return "Carta não está visível.";
+    }
+
+    for (Pilha base : bases) {
+        if (base.getSize() == 0) {
+            if (cartaFila.getNumero() == 1) { 
+                base.push(cartaFila);
+                monteCompra.dequeue(); 
+                return "Carta " + cartaFila.getNome() + " movida para base vazia.";
+            }
+        } else {
+            Carta topoBase = base.getCabeca().getValor();
+            if (topoBase.getNaipe() == cartaFila.getNaipe() &&
+                cartaFila.getNumero() == topoBase.getNumero() + 1) {
+                base.push(cartaFila);
+                monteCompra.dequeue(); 
+                return "Carta " + cartaFila.getNome() + " empilhada com sucesso.";
+            }
+        }
+    }
+
+    return "Não é possível mover a carta " + cartaFila.getNome() + " para nenhuma base.";
+    }
+
 
     public Pilha[] getBases() {
         return bases;
