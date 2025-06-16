@@ -22,11 +22,11 @@ public class Main {
             int opcao = Integer.parseInt(sc.nextLine());
 
             switch (opcao) {
-
+                
                 case 1: {
                     System.out.println("Embaralhando...");
-
-                    if (baralho.getCartas() == null) {
+                    
+                    if(baralho.getCartas() == null) {
                         System.out.println("Falha ao embaralhar.");
                     } else {
                         baralho.embaralhar();
@@ -57,7 +57,7 @@ public class Main {
                         switch (opcaoJogo) {
 
                             case 1:
-
+                            
                                 break;
 
                             case 2: {
@@ -88,34 +88,33 @@ public class Main {
                             }
 
                             case 4:
-
+                                
                                 break;
 
                             case 5:
-
+                                
                                 break;
 
                             case 6:
-
+                                
                                 break;
 
-                            case 7: {
-
-                                jogo.visualizarJogo();
+                            case 7:
                                 break;
-                            }
-
+                                
                             case 8: {
 
                                 System.out.println("Saindo do jogo...");
                                 jogoFinalizado = true;
                                 break;
+
                             }
 
                             default: {
 
                                 System.out.println("Opção inválida!");
                                 break;
+
                             }
                         }
                     }
@@ -136,7 +135,5 @@ public class Main {
             }
 
         }
-
     }
-
 }
