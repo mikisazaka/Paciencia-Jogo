@@ -1,6 +1,7 @@
 
 import cartas.*;
 import controle.Jogo;
+import excecoes.IndiceInvalidoException;
 import java.util.Scanner;
 
 public class Main {
@@ -71,9 +72,20 @@ public class Main {
                                 break;
                             }
 
-                            case 3:
-                                
+                            case 3: {
+
+                                jogo.visualizarJogo();
+                                System.out.println("Digite o número da lista ligada (0 a 6) para onde deseja mover a carta:");
+                                System.out.println("Considere 0 a carta da esquerda e 6, a carta da direita.");
+                                int listaLigada = Integer.parseInt(sc.nextLine());
+
+                                try {
+                                    System.out.println(jogo.getMovimentacoes().movimentacaoFilaLista(listaLigada));
+                                } catch (IndiceInvalidoException e) {
+                                    System.out.println(e.getMessage());
+                                }
                                 break;
+                            }
 
                             case 4:
                                 
