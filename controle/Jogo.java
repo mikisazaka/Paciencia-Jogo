@@ -142,39 +142,6 @@ public class Jogo {
         return sb.toString();
     }
 
-    public String moverFilaPilha() {
-    if (monteCompra.getSize() == 0) {
-        return "Monte de compra está vazio.";
-    }
-
-    Carta cartaFila = monteCompra.getCabeca().getValor();
-
-    if (!cartaFila.isVisivel()) {
-        return "Carta não está visível.";
-    }
-
-    for (Pilha base : bases) {
-        if (base.getSize() == 0) {
-            if (cartaFila.getNumero() == 1) { 
-                base.push(cartaFila);
-                monteCompra.dequeue(); 
-                return "Carta " + cartaFila.getNome() + " movida para base vazia.";
-            }
-        } else {
-            Carta topoBase = base.getCabeca().getValor();
-            if (topoBase.getNaipe() == cartaFila.getNaipe() &&
-                cartaFila.getNumero() == topoBase.getNumero() + 1) {
-                base.push(cartaFila);
-                monteCompra.dequeue(); 
-                return "Carta " + cartaFila.getNome() + " empilhada com sucesso.";
-            }
-        }
-    }
-
-    return "Não é possível mover a carta " + cartaFila.getNome() + " para nenhuma base.";
-    }
-
-
     public Pilha[] getBases() {
         return bases;
     }

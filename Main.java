@@ -58,6 +58,8 @@ public class Main {
 
                             case 1:
                             
+                                String resultado = jogo.getMovimentacoes().moverFilaPilha();
+                                System.out.println(resultado);
                                 break;
 
                             case 2: {
@@ -88,7 +90,17 @@ public class Main {
                             }
 
                             case 4:
-                                
+                            
+                                jogo.visualizarJogo(baralho);
+                                System.out.println("Digite o número da lista (0 a 6) de onde deseja mover a carta para a pilha:");
+                                int lista = Integer.parseInt(sc.nextLine());
+
+                                try {
+                                    String resultadoMov = jogo.getMovimentacoes().moverListaParaPilha(lista);
+                                    System.out.println(resultadoMov);
+                                } catch (IndiceInvalidoException e) {
+                                    System.out.println(e.getMessage());
+                                }
                                 break;
 
                             case 5:
