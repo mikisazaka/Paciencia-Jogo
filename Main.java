@@ -79,17 +79,30 @@ public class Main {
                                 
                                 break;
 
-                            case 5:
-                                
-                                break;
+                            case 5: {
+                                System.out.println("Informe o índice da lista de início: ");
+                                int listaInicial = Integer.parseInt(sc.nextLine());
 
+                                System.out.println("Informe o índice da lista de destino: ");
+                                int listaDestino = Integer.parseInt(sc.nextLine());
+
+                                boolean sucesso = jogo.getMovimentacoes().moverListaParaLista(jogo.getMesa()[listaInicial], jogo.getMesa()[listaDestino]);
+
+                                if (!sucesso) {
+                                    System.out.println("Movimentação inválida.");
+                                }
+
+                                jogo.visualizarJogo();
+                                break;
+                            }
                             case 6:
                                 
                                 break;
 
-                            case 7:
+                            case 7: {
+                                jogo.visualizarJogo();
                                 break;
-                                
+                            }
                             case 8: {
 
                                 System.out.println("Saindo do jogo...");

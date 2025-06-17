@@ -53,7 +53,7 @@ public class Jogo {
         }
     }
 
-    public void visualizarJogo(Baralho baralho) {
+    public void visualizarJogo() {
         if (monteCompra.getSize() == 0) {
             System.out.print("[ ]  ");
         } else {
@@ -77,39 +77,30 @@ public class Jogo {
                 System.out.print(padRight(carta, 5 + (carta.length() - topo.getNome().length())));
             }
         }
+
         System.out.println("\n");
 
-        int maxAltura = 0;
-        for (Lista lista : mesa) {
-            int altura = 0;
-            No<Carta> aux = lista.getCabeca();
-            while (aux != null) {
-                altura++;
-                aux = aux.getProx();
-            }
-            if (altura > maxAltura) {
-                maxAltura = altura;
+        int maxLen = 0;
+        for (Lista coluna : mesa) {
+            if (coluna.getSize() > maxLen) {
+                maxLen = coluna.getSize();
             }
         }
 
-        for (int i = 0; i < maxAltura; i++) {
-            for (Lista lista : mesa) {
-                No<Carta> aux = lista.getCabeca();
-                int altura = 0;
+        for (int linha = 0; linha < maxLen; linha++) {
+            for (Lista coluna : mesa) {
+                int index = coluna.getSize() - 1 - linha;
 
-                while (aux != null && altura < i) {
-                    aux = aux.getProx();
-                    altura++;
-                }
+                if (index >= 0) {
+                    Carta carta = coluna.get(index);
 
-                if (aux != null) {
-                    Carta carta = aux.getValor();
-                    if (aux.getProx() == null) {
+                    if (carta.isVisivel()) {
                         String cor = colorirCarta(carta);
                         System.out.print(padRight(cor, 5 + (cor.length() - carta.getNome().length())));
                     } else {
                         System.out.print("X    ");
                     }
+
                 } else {
                     System.out.print("     ");
                 }
