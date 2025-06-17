@@ -117,6 +117,18 @@ public class Jogo {
             System.out.println();
         }
     }
+    
+    public boolean verificarVitoria() {
+        if(monteCompra.getSize() == 0) {
+            for(Lista lista : mesa) {
+                if (lista.getSize() != 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
 
     private String colorirCarta(Carta carta) {
         String nome = carta.getNome();
