@@ -1,6 +1,8 @@
 package controle;
 
 import cartas.Carta;
+import estruturas_lineares.Lista;
+import estruturas_lineares.Pilha;
 
 public class Movimentacoes {
 

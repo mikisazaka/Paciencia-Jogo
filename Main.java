@@ -91,7 +91,7 @@ public class Main {
 
                             case 4:
                             
-                                jogo.visualizarJogo(baralho);
+                                jogo.visualizarJogo();
                                 System.out.println("Digite o número da lista (0 a 6) de onde deseja mover a carta para a pilha:");
                                 int lista = Integer.parseInt(sc.nextLine());
 
