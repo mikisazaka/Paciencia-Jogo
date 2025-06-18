@@ -3,6 +3,7 @@ package controle;
 import cartas.Carta;
 import estruturas_lineares.Lista;
 import estruturas_lineares.Pilha;
+import excecoes.IndiceInvalidoException;
 
 public class Movimentacoes {
 
@@ -35,6 +36,7 @@ public class Movimentacoes {
         if(lista < 0 || lista > 6) {
             throw new IndiceInvalidoException("Índice inválido! Escolha um número entre 0 e 6.");
         }
+        } 
 
         if (jogo.getMonteCompra().getSize() == 0) {
             return "Monte de compra vazio!";
@@ -78,6 +80,9 @@ public class Movimentacoes {
             if (cartaFila.getNumero() == 1) {
                 base.push(cartaFila);
                 jogo.getMonteCompra().dequeue();
+            if (cartaFila.getNumero() == 1) { 
+                base.push(cartaFila);
+                jogo.getMonteCompra().dequeue(); 
                 return "Carta " + cartaFila.getNome() + " movida para base vazia.";
             }
         } else {
@@ -86,6 +91,7 @@ public class Movimentacoes {
                 cartaFila.getNumero() == topoBase.getNumero() + 1) {
                 base.push(cartaFila);
                 jogo.getMonteCompra().dequeue();
+                jogo.getMonteCompra().dequeue(); 
                 return "Carta " + cartaFila.getNome() + " empilhada com sucesso.";
             }
         }
