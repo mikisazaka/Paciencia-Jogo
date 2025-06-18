@@ -33,10 +33,9 @@ public class Movimentacoes {
 
     public String movimentacaoFilaLista(int lista) throws IndiceInvalidoException {
 
-        if(lista < 0 || lista > 6) {
+        if (lista < 0 || lista > 6) {
             throw new IndiceInvalidoException("Índice inválido! Escolha um número entre 0 e 6.");
         }
-        } 
 
         if (jogo.getMonteCompra().getSize() == 0) {
             return "Monte de compra vazio!";
@@ -65,42 +64,42 @@ public class Movimentacoes {
     }
 
     public String moverFilaPilha() {
-    if (jogo.getMonteCompra().getSize() == 0) {
-        return "Monte de compra está vazio.";
-    }
+        if (jogo.getMonteCompra().getSize() == 0) {
+            return "Monte de compra está vazio.";
+        }
 
-    Carta cartaFila = jogo.getMonteCompra().getCabeca().getValor();
+        Carta cartaFila = jogo.getMonteCompra().getCabeca().getValor();
 
-    if (!cartaFila.isVisivel()) {
-        return "Carta não está visível.";
-    }
+        if (!cartaFila.isVisivel()) {
+            return "Carta não está visível.";
+        }
 
-    for (Pilha base : jogo.getBases()) {
-        if (base.getSize() == 0) {
-            if (cartaFila.getNumero() == 1) {
-                base.push(cartaFila);
-                jogo.getMonteCompra().dequeue();
-            if (cartaFila.getNumero() == 1) { 
-                base.push(cartaFila);
-                jogo.getMonteCompra().dequeue(); 
-                return "Carta " + cartaFila.getNome() + " movida para base vazia.";
-            }
-        } else {
-            Carta topoBase = base.getCabeca().getValor();
-            if (topoBase.getNaipe() == cartaFila.getNaipe() &&
-                cartaFila.getNumero() == topoBase.getNumero() + 1) {
-                base.push(cartaFila);
-                jogo.getMonteCompra().dequeue();
-                jogo.getMonteCompra().dequeue(); 
-                return "Carta " + cartaFila.getNome() + " empilhada com sucesso.";
+        for (Pilha base : jogo.getBases()) {
+            if (base.getSize() == 0) {
+                if (cartaFila.getNumero() == 1) {
+                    base.push(cartaFila);
+                    jogo.getMonteCompra().dequeue();
+                    if (cartaFila.getNumero() == 1) {
+                        base.push(cartaFila);
+                        jogo.getMonteCompra().dequeue();
+                        return "Carta " + cartaFila.getNome() + " movida para base vazia.";
+                    }
+                } else {
+                    Carta topoBase = base.getCabeca().getValor();
+                    if (topoBase.getNaipe() == cartaFila.getNaipe() &&
+                            cartaFila.getNumero() == topoBase.getNumero() + 1) {
+                        base.push(cartaFila);
+                        jogo.getMonteCompra().dequeue();
+                        jogo.getMonteCompra().dequeue();
+                        return "Carta " + cartaFila.getNome() + " empilhada com sucesso.";
+                    }
+                }
             }
         }
+        return "Não é possível mover a carta " + cartaFila.getNome() + " para nenhuma base.";
     }
 
-    return "Não é possível mover a carta " + cartaFila.getNome() + " para nenhuma base.";
-    }
-
-    public String moverListaParaPilha(int indiceLista) throws IndiceInvalidoException {
+    public String moverListaParaPilha (int indiceLista) throws IndiceInvalidoException {
         if (indiceLista < 0 || indiceLista > 6) {
             throw new IndiceInvalidoException("Índice da lista inválido! Use de 0 a 6.");
         }
@@ -126,7 +125,7 @@ public class Movimentacoes {
             } else {
                 Carta topoBase = base.getCabeca().getValor();
                 if (topoBase.getNaipe() == cartaTopo.getNaipe() &&
-                    cartaTopo.getNumero() == topoBase.getNumero() + 1) {
+                        cartaTopo.getNumero() == topoBase.getNumero() + 1) {
                     base.push(cartaTopo);
                     lista.removerElemento(lista.getSize() - 1);
                     return "Carta " + cartaTopo.getNome() + " empilhada com sucesso.";
@@ -136,7 +135,8 @@ public class Movimentacoes {
 
         return "Não é possível mover a carta " + cartaTopo.getNome() + " para nenhuma pilha.";
     }
-    public boolean moverListaParaLista(Lista origem, Lista destino) {
+
+    public boolean moverListaParaLista(Lista origem, Lista destino){
         if (origem == null || destino == null || origem.estaVazio()) return false;
 
         Lista temporaria = new Lista();
