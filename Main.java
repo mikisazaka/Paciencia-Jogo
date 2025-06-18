@@ -90,8 +90,7 @@ public class Main {
                             }
 
                             case 4:
-                            
-                                jogo.visualizarJogo(baralho);
+                                jogo.visualizarJogo();
                                 System.out.println("Digite o número da lista (0 a 6) de onde deseja mover a carta para a pilha:");
                                 int lista = Integer.parseInt(sc.nextLine());
 
@@ -103,17 +102,30 @@ public class Main {
                                 }
                                 break;
 
-                            case 5:
-                                
-                                break;
+                            case 5: {
+                                System.out.println("Informe o índice da lista de início: ");
+                                int listaInicial = Integer.parseInt(sc.nextLine());
 
+                                System.out.println("Informe o índice da lista de destino: ");
+                                int listaDestino = Integer.parseInt(sc.nextLine());
+
+                                boolean sucesso = jogo.getMovimentacoes().moverListaParaLista(jogo.getMesa()[listaInicial], jogo.getMesa()[listaDestino]);
+
+                                if (!sucesso) {
+                                    System.out.println("Movimentação inválida.");
+                                }
+
+                                jogo.visualizarJogo();
+                                break;
+                            }
                             case 6:
                                 
                                 break;
 
-                            case 7:
+                            case 7: {
+                                jogo.visualizarJogo();
                                 break;
-                                
+                            }
                             case 8: {
 
                                 System.out.println("Saindo do jogo...");
