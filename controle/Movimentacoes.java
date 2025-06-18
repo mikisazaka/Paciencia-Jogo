@@ -79,59 +79,75 @@ public class Movimentacoes {
                 if (cartaFila.getNumero() == 1) {
                     base.push(cartaFila);
                     jogo.getMonteCompra().dequeue();
-                    if (cartaFila.getNumero() == 1) {
-                        base.push(cartaFila);
-                        jogo.getMonteCompra().dequeue();
-                        return "Carta " + cartaFila.getNome() + " movida para base vazia.";
+
+                    // ✅ Verifica vitória após a movimentação
+                    if (jogo.verificarVitoria()) {
+                        return "Carta " + cartaFila.getNome() + " movida para base vazia. Parabéns! Você venceu o jogo!";
                     }
-                } else {
-                    Carta topoBase = base.getCabeca().getValor();
-                    if (topoBase.getNaipe() == cartaFila.getNaipe() &&
-                            cartaFila.getNumero() == topoBase.getNumero() + 1) {
-                        base.push(cartaFila);
-                        jogo.getMonteCompra().dequeue();
-                        jogo.getMonteCompra().dequeue();
-                        return "Carta " + cartaFila.getNome() + " empilhada com sucesso.";
+
+                    return "Carta " + cartaFila.getNome() + " movida para base vazia.";
+                }
+            } else {
+                Carta topoBase = base.getCabeca().getValor();
+                if (topoBase.getNaipe() == cartaFila.getNaipe() &&
+                        cartaFila.getNumero() == topoBase.getNumero() + 1) {
+                    base.push(cartaFila);
+                    jogo.getMonteCompra().dequeue();
+
+                    if (jogo.verificarVitoria()) {
+                        return "Carta " + cartaFila.getNome() + " empilhada com sucesso. Parabéns! Você venceu o jogo!";
                     }
+
+                    return "Carta " + cartaFila.getNome() + " empilhada com sucesso.";
                 }
             }
         }
         return "Não é possível mover a carta " + cartaFila.getNome() + " para nenhuma base.";
     }
 
-    public String moverListaParaPilha (int indiceLista) throws IndiceInvalidoException {
-        if (indiceLista < 0 || indiceLista > 6) {
-            throw new IndiceInvalidoException("Índice da lista inválido! Use de 0 a 6.");
-        }
+    public String moverListaParaPilha(int indiceLista) throws IndiceInvalidoException {
+    if (indiceLista < 0 || indiceLista > 6) {
+        throw new IndiceInvalidoException("Índice da lista inválido! Use de 0 a 6.");
+    }
 
-        Lista lista = jogo.getMesa()[indiceLista];
-        if (lista.getSize() == 0) {
-            return "A lista selecionada está vazia.";
-        }
+    Lista lista = jogo.getMesa()[indiceLista];
+    if (lista.getSize() == 0) {
+        return "A lista selecionada está vazia.";
+    }
 
-        Carta cartaTopo = lista.getCauda().getValor();
+    Carta cartaTopo = lista.getCauda().getValor();
 
-        if (!cartaTopo.isVisivel()) {
-            return "A carta do topo da lista não está visível.";
-        }
+    if (!cartaTopo.isVisivel()) {
+        return "A carta do topo da lista não está visível.";
+    }
 
-        for (Pilha base : jogo.getBases()) {
-            if (base.getSize() == 0) {
-                if (cartaTopo.getNumero() == 1) { // Ás
-                    base.push(cartaTopo);
-                    lista.removerElemento(lista.getSize() - 1);
-                    return "Carta " + cartaTopo.getNome() + " movida para base vazia.";
+    for (Pilha base : jogo.getBases()) {
+        if (base.getSize() == 0) {
+            if (cartaTopo.getNumero() == 1) { // Ás
+                base.push(cartaTopo);
+                lista.removerElemento(lista.getSize() - 1);
+
+                if (jogo.verificarVitoria()) {
+                    return "Carta " + cartaTopo.getNome() + " movida para base vazia. Parabéns! Você venceu o jogo!";
                 }
-            } else {
-                Carta topoBase = base.getCabeca().getValor();
-                if (topoBase.getNaipe() == cartaTopo.getNaipe() &&
-                        cartaTopo.getNumero() == topoBase.getNumero() + 1) {
-                    base.push(cartaTopo);
-                    lista.removerElemento(lista.getSize() - 1);
-                    return "Carta " + cartaTopo.getNome() + " empilhada com sucesso.";
+
+                return "Carta " + cartaTopo.getNome() + " movida para base vazia.";
+            }
+        } else {
+            Carta topoBase = base.getCabeca().getValor();
+            if (topoBase.getNaipe() == cartaTopo.getNaipe() &&
+                    cartaTopo.getNumero() == topoBase.getNumero() + 1) {
+                base.push(cartaTopo);
+                lista.removerElemento(lista.getSize() - 1);
+
+                if (jogo.verificarVitoria()) {
+                    return "Carta " + cartaTopo.getNome() + " empilhada com sucesso. Parabéns! Você venceu o jogo!";
                 }
+
+                return "Carta " + cartaTopo.getNome() + " empilhada com sucesso.";
             }
         }
+    }
 
         return "Não é possível mover a carta " + cartaTopo.getNome() + " para nenhuma pilha.";
     }

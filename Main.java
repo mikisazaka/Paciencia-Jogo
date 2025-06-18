@@ -56,11 +56,18 @@ public class Main {
 
                         switch (opcaoJogo) {
 
-                            case 1:
-                            
+                            case 1: {
+
                                 String resultado = jogo.getMovimentacoes().moverFilaPilha();
                                 System.out.println(resultado);
+
+                                if (jogo.verificarVitoria()) {
+                                    System.out.println("\n>>> Parabéns! Você venceu o jogo! <<<\n");
+                                    jogoFinalizado = true;
+                                }
                                 break;
+
+                            }
 
                             case 2: {
 
@@ -89,7 +96,8 @@ public class Main {
                                 break;
                             }
 
-                            case 4:
+                            case 4: {
+                                
                                 jogo.visualizarJogo();
                                 System.out.println("Digite o número da lista (0 a 6) de onde deseja mover a carta para a pilha:");
                                 int lista = Integer.parseInt(sc.nextLine());
@@ -97,10 +105,18 @@ public class Main {
                                 try {
                                     String resultadoMov = jogo.getMovimentacoes().moverListaParaPilha(lista);
                                     System.out.println(resultadoMov);
+
+                                    if (jogo.verificarVitoria()) {
+                                        System.out.println("\n>>> Parabéns! Você venceu o jogo! <<<\n");
+                                        jogoFinalizado = true;
+                                    }
+
                                 } catch (IndiceInvalidoException e) {
                                     System.out.println(e.getMessage());
                                 }
                                 break;
+
+                            }
 
                             case 5: {
                                 System.out.println("Informe o índice da lista de início: ");
