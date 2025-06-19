@@ -13,17 +13,25 @@ public class Jogo {
     private Fila monteCompra;
     private Lista[] mesa = new Lista[7];
 
+    // Estruturas auxiliares para reiniciar jogo
+    private Pilha[] basesIniciais = new Pilha[4];
+    private Fila monteCompraInicial;
+    private Lista[] mesaInicial = new Lista[7];
+
     private Movimentacoes movimentacoes;
 
     public Jogo() {
         monteCompra = new Fila();
+        monteCompraInicial = new Fila();
 
         for (int i = 0; i < bases.length; i++) {
             bases[i] = new Pilha();
+            basesIniciais[i] = new Pilha();
         }
 
         for (int i = 0; i < mesa.length; i++) {
             mesa[i] = new Lista();
+            mesaInicial[i] = new Lista();
         }
 
         movimentacoes = new Movimentacoes(this);
@@ -37,10 +45,11 @@ public class Jogo {
             for (int j = 0; j <= i; j++) {
                 No<Carta> carta = aux;
                 Carta c = carta.getValor();
-                mesa[i].add(c);
                 if (j == i) {
                     c.setVisibilidade(true);
                 }
+                mesa[i].add(c);
+                mesaInicial[i].add(new Carta(c));
                 aux = aux.getProx();
             }
         }
@@ -49,36 +58,39 @@ public class Jogo {
             No<Carta> carta = aux;
             Carta c = carta.getValor();
             monteCompra.enqueue(c);
+            monteCompraInicial.enqueue(new Carta(c));
             aux = aux.getProx();
         }
     }
 
-    public void visualizarJogo() {
+    public String visualizarJogo() {
+
+        StringBuilder sb = new StringBuilder();
         if (monteCompra.getSize() == 0) {
-            System.out.print("[ ]  ");
+            sb.append("[ ]  ");
         } else {
-            System.out.print("[X]  ");
+            sb.append("[X]  ");
         }
 
         if (monteCompra.getSize() == 0 || !monteCompra.getCabeca().getValor().isVisivel()) {
-            System.out.print("[ ]");
+            sb.append("[ ]");
         } else {
             Carta topo = monteCompra.getCabeca().getValor();
-            System.out.print(colorirCarta(topo));
+            sb.append(colorirCarta(topo));
         }
 
-        System.out.print("     ");
+        sb.append("     ");
         for (Pilha base : bases) {
             if (base.getSize() == 0) {
-                System.out.print("[ ]  ");
+                sb.append("[ ]  ");
             } else {
                 Carta topo = base.getCabeca().getValor();
                 String carta = colorirCarta(topo);
-                System.out.print(padRight(carta, 5 + (carta.length() - topo.getNome().length())));
+                sb.append(padRight(carta, 5 + (carta.length() - topo.getNome().length())));
             }
         }
 
-        System.out.println("\n");
+        sb.append("\n");
 
         int maxLen = 0;
         for (Lista coluna : mesa) {
@@ -96,16 +108,61 @@ public class Jogo {
 
                     if (carta.isVisivel()) {
                         String cor = colorirCarta(carta);
-                        System.out.print(padRight(cor, 5 + (cor.length() - carta.getNome().length())));
+                        sb.append(padRight(cor, 5 + (cor.length() - carta.getNome().length())));
                     } else {
-                        System.out.print("X    ");
+                        sb.append("X    ");
                     }
 
                 } else {
-                    System.out.print("     ");
+                    sb.append("     ");
                 }
             }
-            System.out.println();
+            sb.append("\n");
+        } return sb.toString();
+    }
+
+    public void reiniciarJogo() {
+        limparEstruturas();
+        reestruturarMesaInicial();
+    }
+
+    private void limparEstruturas() {
+        for (Pilha base : bases) {
+            int tamanho =  base.getSize();
+            for (int i = 0; i < tamanho; i++) {
+                base.pop();
+            }
+        }
+
+        if (monteCompra.getSize() != 0) {
+            int tamanho =  monteCompra.getSize();
+            for (int i = 0; i < tamanho; i++) {
+                monteCompra.dequeue();
+            }
+        }
+
+        for (Lista coluna : mesa) {
+            while (coluna.getCabeca() != null) {
+                int index = coluna.getSize();
+                coluna.removerElemento(index - 1);
+            }
+        }
+    }
+
+    private void reestruturarMesaInicial() {
+        for (int i = 0; i < mesaInicial.length; i++) {
+            for (int j = i; j >= 0; j--) {
+                Carta aux =  mesaInicial[i].get(j);
+                Carta c = new Carta(aux);
+                mesa[i].add(c);
+            }
+        }
+
+        No<Carta> atualizar = monteCompraInicial.getCabeca();
+        while (atualizar != null) {
+            Carta c = new Carta(atualizar.getValor());
+            monteCompra.enqueue(c);
+            atualizar = atualizar.getProx();
         }
     }
     

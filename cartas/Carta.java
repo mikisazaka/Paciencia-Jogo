@@ -15,6 +15,14 @@ public class Carta {
         this.nome = nome;
     }
 
+    public Carta(Carta outraCarta) {
+        this.numero = outraCarta.getNumero();
+        this.naipe = outraCarta.getNaipe();
+        this.cor = outraCarta.getCor();
+        this.visibilidade = outraCarta.isVisivel();
+        this.nome = outraCarta.getNome();
+    }
+
     public int getNumero() {
         return numero;
     }

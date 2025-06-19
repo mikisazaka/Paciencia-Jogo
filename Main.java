@@ -83,7 +83,7 @@ public class Main {
 
                             case 3: {
 
-                                jogo.visualizarJogo();
+                                System.out.println(jogo.visualizarJogo());
                                 System.out.println("Digite o número da lista ligada (0 a 6) para onde deseja mover a carta:");
                                 System.out.println("Considere 0 a carta da esquerda e 6, a carta da direita.");
                                 int listaLigada = Integer.parseInt(sc.nextLine());
@@ -97,8 +97,8 @@ public class Main {
                             }
 
                             case 4: {
-                                
-                                jogo.visualizarJogo();
+
+                                System.out.println(jogo.visualizarJogo());
                                 System.out.println("Digite o número da lista (0 a 6) de onde deseja mover a carta para a pilha:");
                                 int lista = Integer.parseInt(sc.nextLine());
 
@@ -131,30 +131,31 @@ public class Main {
                                     System.out.println("Movimentação inválida.");
                                 }
 
-                                jogo.visualizarJogo();
+                                System.out.println(jogo.visualizarJogo());
                                 break;
                             }
-                            case 6:
-                                
+
+                            case 6: {
+                                System.out.println("Reiniciando jogo...");
+                                jogo.reiniciarJogo();
+                                System.out.println(jogo.visualizarJogo());
                                 break;
+                            }
 
                             case 7: {
-                                jogo.visualizarJogo();
+                                System.out.println(jogo.visualizarJogo());
                                 break;
                             }
-                            case 8: {
 
+                            case 8: {
                                 System.out.println("Saindo do jogo...");
                                 jogoFinalizado = true;
                                 break;
-
                             }
 
                             default: {
-
                                 System.out.println("Opção inválida!");
                                 break;
-
                             }
                         }
                     }
@@ -164,6 +165,7 @@ public class Main {
                 }
 
                 case 3: {
+                    System.out.println("Jogo finalizado!");
                     sc.close();
                     return;
                 }
