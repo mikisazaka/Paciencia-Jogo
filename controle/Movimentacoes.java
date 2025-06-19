@@ -46,7 +46,7 @@ public class Movimentacoes {
             Carta cartaLista = jogo.getMesa()[lista].getCauda().getValor();
 
             if (cartaLista != null) {
-                if (!cartaLista.getCor().equals(cartaFila.getCor()) && cartaFila.getNumero() == cartaLista.getNumero() + 1) {
+                if (!cartaLista.getCor().equals(cartaFila.getCor()) && cartaFila.getNumero() == cartaLista.getNumero() - 1) {
                     jogo.getMonteCompra().dequeue();
                     jogo.getMesa()[lista].addFinal(cartaFila);
                     return "Carta movida para a lista " + lista + " com sucesso!";
@@ -106,53 +106,53 @@ public class Movimentacoes {
     }
 
     public String moverListaParaPilha(int indiceLista) throws IndiceInvalidoException {
-    if (indiceLista < 0 || indiceLista > 6) {
-        throw new IndiceInvalidoException("Índice da lista inválido! Use de 0 a 6.");
-    }
+        if (indiceLista < 0 || indiceLista > 6) {
+            throw new IndiceInvalidoException("Índice da lista inválido! Use de 0 a 6.");
+        }
 
-    Lista lista = jogo.getMesa()[indiceLista];
-    if (lista.getSize() == 0) {
-        return "A lista selecionada está vazia.";
-    }
+        Lista lista = jogo.getMesa()[indiceLista];
+        if (lista.getSize() == 0) {
+            return "A lista selecionada está vazia.";
+        }
 
-    Carta cartaTopo = lista.getCauda().getValor();
+        Carta cartaTopo = lista.getCauda().getValor();
 
-    if (!cartaTopo.isVisivel()) {
-        return "A carta do topo da lista não está visível.";
-    }
+        if (!cartaTopo.isVisivel()) {
+            return "A carta do topo da lista não está visível.";
+        }
 
-    for (Pilha base : jogo.getBases()) {
-        if (base.getSize() == 0) {
-            if (cartaTopo.getNumero() == 1) { // Ás
-                base.push(cartaTopo);
-                lista.removerElemento(lista.getSize() - 1);
+        for (Pilha base : jogo.getBases()) {
+            if (base.getSize() == 0) {
+                if (cartaTopo.getNumero() == 1) { // Ás
+                    base.push(cartaTopo);
+                    lista.removerElemento(lista.getSize() - 1);
 
-                if (jogo.verificarVitoria()) {
-                    return "Carta " + cartaTopo.getNome() + " movida para base vazia. Parabéns! Você venceu o jogo!";
+                    if (jogo.verificarVitoria()) {
+                        return "Carta " + cartaTopo.getNome() + " movida para base vazia. Parabéns! Você venceu o jogo!";
+                    }
+
+                    return "Carta " + cartaTopo.getNome() + " movida para base vazia.";
                 }
+            } else {
+                Carta topoBase = base.getCabeca().getValor();
+                if (topoBase.getNaipe() == cartaTopo.getNaipe() &&
+                        cartaTopo.getNumero() == topoBase.getNumero() + 1) {
+                    base.push(cartaTopo);
+                    lista.removerElemento(lista.getSize() - 1);
 
-                return "Carta " + cartaTopo.getNome() + " movida para base vazia.";
-            }
-        } else {
-            Carta topoBase = base.getCabeca().getValor();
-            if (topoBase.getNaipe() == cartaTopo.getNaipe() &&
-                    cartaTopo.getNumero() == topoBase.getNumero() + 1) {
-                base.push(cartaTopo);
-                lista.removerElemento(lista.getSize() - 1);
+                    if (jogo.verificarVitoria()) {
+                        return "Carta " + cartaTopo.getNome() + " empilhada com sucesso. Parabéns! Você venceu o jogo!";
+                    }
 
-                if (jogo.verificarVitoria()) {
-                    return "Carta " + cartaTopo.getNome() + " empilhada com sucesso. Parabéns! Você venceu o jogo!";
+                    return "Carta " + cartaTopo.getNome() + " empilhada com sucesso.";
                 }
-
-                return "Carta " + cartaTopo.getNome() + " empilhada com sucesso.";
             }
         }
-    }
 
         return "Não é possível mover a carta " + cartaTopo.getNome() + " para nenhuma pilha.";
     }
 
-    public boolean moverListaParaLista(Lista origem, Lista destino){
+    public boolean moverListaParaLista(Lista origem, Lista destino) {
         if (origem == null || destino == null || origem.estaVazio()) return false;
 
         Lista temporaria = new Lista();
