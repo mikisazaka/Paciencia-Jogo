@@ -43,12 +43,14 @@ public class Movimentacoes {
 
         if (jogo.getMonteCompra().getCabeca().getValor().isVisivel()) {
             Carta cartaFila = jogo.getMonteCompra().getCabeca().getValor();
-            Carta cartaLista = jogo.getMesa()[lista].getCauda().getValor();
+            Carta cartaLista = null;
+            if(jogo.getMesa()[lista].getSize() != 0)
+                cartaLista = jogo.getMesa()[lista].getCabeca().getValor();
 
             if (cartaLista != null) {
                 if (!cartaLista.getCor().equals(cartaFila.getCor()) && cartaFila.getNumero() == cartaLista.getNumero() - 1) {
+                    jogo.getMesa()[lista].add(cartaFila);
                     jogo.getMonteCompra().dequeue();
-                    jogo.getMesa()[lista].addFinal(cartaFila);
                     return "Carta movida para a lista " + lista + " com sucesso!";
                 }
                 return "Não foi possível mover a carta para a lista " + lista + ". Verifique as regras do jogo.";
@@ -115,7 +117,7 @@ public class Movimentacoes {
             return "A lista selecionada está vazia.";
         }
 
-        Carta cartaTopo = lista.getCauda().getValor();
+        Carta cartaTopo = lista.getCabeca().getValor();
 
         if (!cartaTopo.isVisivel()) {
             return "A carta do topo da lista não está visível.";
@@ -125,7 +127,9 @@ public class Movimentacoes {
             if (base.getSize() == 0) {
                 if (cartaTopo.getNumero() == 1) { // Ás
                     base.push(cartaTopo);
-                    lista.removerElemento(lista.getSize() - 1);
+                    lista.removerCabeca();
+                    if(lista.getCabeca() != null)
+                        lista.getCabeca().getValor().setVisibilidade(true);
 
                     if (jogo.verificarVitoria()) {
                         return "Carta " + cartaTopo.getNome() + " movida para base vazia. Parabéns! Você venceu o jogo!";
@@ -138,7 +142,9 @@ public class Movimentacoes {
                 if (topoBase.getNaipe() == cartaTopo.getNaipe() &&
                         cartaTopo.getNumero() == topoBase.getNumero() + 1) {
                     base.push(cartaTopo);
-                    lista.removerElemento(lista.getSize() - 1);
+                    lista.removerCabeca();
+                    if(lista.getCabeca() != null)
+                        lista.getCabeca().getValor().setVisibilidade(true);
 
                     if (jogo.verificarVitoria()) {
                         return "Carta " + cartaTopo.getNome() + " empilhada com sucesso. Parabéns! Você venceu o jogo!";
