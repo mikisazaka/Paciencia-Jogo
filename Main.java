@@ -42,11 +42,11 @@ public class Main {
                     boolean jogoFinalizado = false;
                     while (!jogoFinalizado) {
                         System.out.println("\n======Menu do jogo======");
-                        System.out.println("1 - Movimentar uma carta da fila (monteDeCompras) para pilha (4 Naipes)");
-                        System.out.println("2 - Movimentar da fila (monteDeCompra) para a fila (monteDeCompra)");
-                        System.out.println("3 - Movimentar uma carta da fila (monteDeCompra) para uma das listas ligadas (7 montes)");
-                        System.out.println("4 - Movimentar uma carta de uma das listas ligadas (7 montes) para uma das pilhas (4 Naipes)");
-                        System.out.println("5 - Movimentar uma carta de uma lista ligada (7 montes) para outra lista ligada (7 montes)");
+                        System.out.println("1 - Movimentar uma carta da fila para pilha");
+                        System.out.println("2 - Movimentar da fila para a fila");
+                        System.out.println("3 - Movimentar uma carta da fila para uma das listas ligadas");
+                        System.out.println("4 - Movimentar uma carta de uma das listas ligadas para uma das pilhas");
+                        System.out.println("5 - Movimentar uma carta de uma lista ligada para outra lista ligada");
                         System.out.println("6 - Reiniciar o jogo");
                         System.out.println("7 - Ver estado atual do jogo");
                         System.out.println("8 - Sair do jogo");
