@@ -1,5 +1,6 @@
 # 🃏 Jogo de Paciência (Solitário) no Console
 Este é um jogo simples de paciência (solitário), desenvolvido em Java como parte do projeto de avaliação da disciplina de Estrutura de Dados e Programação Orientada a Objetos.
+O sistema possui jogabilidade e visualização pelo próprio console feito a partir de estruturas de dados lineares implementados manualmente.
 
 <br>
 
